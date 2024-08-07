@@ -12,19 +12,19 @@
 
 void generateFile(const std::string& filePath, std::size_t sizeInBytes) {
 
-    std::string fullPath = filePath + "/entrada";
+    std::string fullPath = filePath + "/entrada"; //nombre del archivo
 
-    std::ofstream outputFile(fullPath, std::ios::binary);
+    std::ofstream outputFile(fullPath, std::ios::binary); //creacion del archivo binario
     if (!outputFile) {
         std::cerr << "Error no se encontro la ruta" << std::endl;
         return;
     }
 
-    std::random_device rd;
+    std::random_device rd; //generacion de numeros aleatorios
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist;
 
-    std::size_t numIntegers = sizeInBytes / sizeof(int);
+    std::size_t numIntegers = sizeInBytes / sizeof(int); //conversion de numeros
     for (std::size_t i = 0; i < numIntegers; ++i) {
         int randomNumber = dist(gen);
         outputFile.write(reinterpret_cast<const char*>(&randomNumber), sizeof(randomNumber));
@@ -35,7 +35,7 @@ void generateFile(const std::string& filePath, std::size_t sizeInBytes) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 5) {
+    if (argc != 5) { //establece los argumentos necesarios para utilizar el programa
         std::cerr << "Uso: generator --size <SIZE> --output <OUTPUT FILE PATH>" << std::endl;
         generateFile(".",1000*1000*1000) ;
         return 1;
